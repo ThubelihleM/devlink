@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+<main class="profile-container">
+  <img
+    src="{{ url_for('static', filename='images/avatar.jpg')}}"
+    alt="Avatar"
+    class="avatar"
+  />
+  <h2>Thubelihle Mdlalose</h2>
+  <p>Full Stack Developer | Python • JavaScript • Flask</p>
+
+  <section class="bio">
+    <h3>About Me</h3>
+    <p>I love building web apps that help people learn and grow.</p>
+  </section>
+  <section class="social-links">
+    <a href="https://github.com/ThubelihleM" target="_blank">Github</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Email</a>
+  </section>
+</main>
+{% endblock %}}
