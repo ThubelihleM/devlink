@@ -1,21 +1,20 @@
 {% extends "base.html" %} {% block content %}
-<main class="profile-container">
-  <img
-    src="{{ url_for('static', filename='images/avatar.jpg')}}"
-    alt="Avatar"
-    class="avatar"
-  />
-  <h2>Thubelihle Mdlalose</h2>
-  <p>Full Stack Developer | Python • JavaScript • Flask</p>
+<h2>Welcome, {{ user.username }}</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <p>{{ form.bio.label }}<br />{{ form.bio(rows=4, cols=50) }}</p>
+  <p>{{ form.github.label }}<br />{{ form.github(size=50) }}</p>
+  <p>{{ form.tech_stack.label }}<br />{{ form.tech_stack(size=50) }}</p>
+  <p>{{ form.submit() }}</p>
+</form>
 
-  <section class="bio">
-    <h3>About Me</h3>
-    <p>I love building web apps that help people learn and grow.</p>
-  </section>
-  <section class="social-links">
-    <a href="https://github.com/ThubelihleM" target="_blank">Github</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Email</a>
-  </section>
-</main>
-{% endblock %}}
+{% with messages = get_flashed_messages() %} {% if messages %}
+<ul>
+  {% for message in messages %}
+  <li style="color: green">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+
+<p><a href="{{ url_for('logout') }}">Logout</a></p>
+{% endblock %}
