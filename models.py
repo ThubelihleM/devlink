@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200), nullable=False)
 
     # Profile fields
-    bio = db.Column(db.Text)
-    github = db.Column(db.String(100))
-    tech_stack = db.Column(db.String(100))
+    bio = db.Column(db.Text, nullable=True)
+    github = db.Column(db.String(100), nullable=True)
+    tech_stack = db.Column(db.String(100), nullable=True)
+    profile_photo = db.Column(db.String(120), default='default.png', nullable=True)

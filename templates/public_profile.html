@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block title %} {{ user.username }}'s Portfolio {%
+endblock %} {% block content %}
+<div class="container">
+  <div class="container">
+    <div class="profile-card">
+      <div class="profile-photo">
+        {% if user.profile_photo %}
+        <img
+          src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}"
+          alt="Profile photo of {{ user.username }}"
+        />
+        {% else %}
+        <img
+          src="{{ url_for('static', filename='default-profile.png') }}"
+          alt="Default profile photo"
+        />
+        {% endif %}
+      </div>
+      <div class="profile-info">
+        <h2>{{ user.username }}</h2>
+        <p><strong>Bio:</strong> {{ user.bio or "No bio added yet." }}</p>
+        <p>
+          <strong>GitHub:</strong>
+          {% if user.github %}
+          <a href="{{ user.github }}" target="_blank">{{ user.github }}</a>
+          {% else %} Not provided {% endif %}
+        </p>
+        <p>
+          <strong>Tech Stack:</strong> {{ user.tech_stack or "Not specified" }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2>Projects</h2>
+    <ul>
+      <li>📁 Portfolio Website (static)</li>
+      <li>📁 Todo App (static)</li>
+      <li>📁 Weather Tracker (static)</li>
+    </ul>
+  </div>
+  <div class="profile-actions">
+    {% if current_user.is_authenticated and current_user.id == user.id %}
+    <a href="{{ url_for('profile') }}" class="btn">Edit Profile</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

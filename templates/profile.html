@@ -1,7 +1,20 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block title %} DevLink | {{ user.username }} {%
+endblock %} {% block content %}
 <h2>Welcome, {{ user.username }}</h2>
-<form method="POST">
+{% if current_user.profile_photo %}
+<img
+  src="{{ url_for('static', filename='uploads/' + current_user.profile_photo) }}"
+  alt="Profile Photo"
+  width="150"
+/>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
   {{ form.hidden_tag() }}
+  <p>
+    {{ form.profile_photo.label }}<br />
+    {{ form.profile_photo() }}
+  </p>
   <p>{{ form.bio.label }}<br />{{ form.bio(rows=4, cols=50) }}</p>
   <p>{{ form.github.label }}<br />{{ form.github(size=50) }}</p>
   <p>{{ form.tech_stack.label }}<br />{{ form.tech_stack(size=50) }}</p>
@@ -16,5 +29,10 @@
 </ul>
 {% endif %} {% endwith %}
 
-<p><a href="{{ url_for('logout') }}">Logout</a></p>
+<div class="profile-actions">
+  <a href="{{ url_for('logout') }}" class="btn">Logout</a> &nbsp; &nbsp;
+  <a href="{{ url_for('public_profile', username=user.username) }}" class="btn"
+    >Back to Home</a
+  >
+</div>
 {% endblock %}
